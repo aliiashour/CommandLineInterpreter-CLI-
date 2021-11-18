@@ -1,45 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cli;
-import java.util.Arrays;
+
+import java.io.*;
+import java.util.Scanner;
+
+// Ahmed Gamal Ahmed 20190021 OS CS-S5
+// Ali Ashour Mostafa 20190338 OS CS-S5
 
 
-
-/**
- *
- * @author ALI
- */
 public class Parser {
     String commandName;
     String[] allCommands = {"echo", "pwd", "ls", "ls -r", "mkdir", "rmdir", "touch",
-                            "cp", "cp -r", "rm", "cat", ">", ">>", "exit"} ; 
+            "cp", "cp -r", "rm", "cat", "exit", "cd"} ;
     String[] args;
 
     //This method will divide the input into commandName and args
-    //where "input" is the string command entered by the user 
-    //if the string is falid will return true else it return false
+    //where "input" is the string command entered by the user
+    //if the string is valid will return true else it returns false
     public boolean parse(String input){
-        args = input.split(" ") ; 
-        String command = args[0] ; 
-        boolean correctCommand = false ; 
-        for(String i : args ){
+        args = input.split(" ") ;
+        String command = args[0] ;
+        boolean correctCommand = false ;
+        for(String i : allCommands ){
             if(i.equals(command)){
-                correctCommand = true  ; 
-                break ; 
+                correctCommand = true  ;
+                break ;
             }
         }
-        commandName = command ;         
+        commandName = command ;
         return correctCommand ;
-    } 
-    
-    public String getCommandName(){
-        return commandName ; 
     }
-    
+
+    public String getCommandName(){
+        return commandName ;
+    }
+
+
     public String[] getArgs(){
-        return args ; 
+        return args ;
     }
 }

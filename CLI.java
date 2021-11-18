@@ -4,73 +4,33 @@
  * and open the template in the editor.
  */
 package cli;
+import java.io.*;
 import java.util.Scanner;
-import java.util.Arrays;
-
 /**
  *
  * @author ALI
  */
 public class CLI {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-        Scanner sc = new Scanner(System.in);  
-        Parser p = new Parser() ; 
-        Terminal t = new Terminal() ; 
-        boolean exitLoop = false ; 
-        while (true){
-            exitLoop = false ; 
-            System.out.print("Enter U Command: ");
-            String input  = sc.nextLine() ;
-            if ( p.parse(input) ){
-                t.setParser(p);
-                String commandName = t.parser.getCommandName() ; 
-                switch ( commandName ){
-                    case "echo":
-                        System.out.println(t.echo());
-                        break ;
-                    case "pwd":
-                        System.out.println(t.pwd());
-                        break ;
-                    case "mkdir":
-                        t.mkdir();
-                        break ;
-                    case "rmdir":
-                        t.rmdir();
-                        break ;
-                    case "touch":
-                        t.touch();
-                        break ;
-                    case "ls":
-                        t.ls();
-                        break ;
-                    case "cp":
-                        t.cp();
-                        break ;
-                    case "cat":
-                        System.out.println("CAT COMMAND :eee)");
-                        break ;
-                    case "exit":
-                        System.out.println("Good Bye :)");
-                        exitLoop = true ; 
-                        break ;
-                    default:
-                        System.out.println("ERROR command::D");
-                        break ; 
-                }
-            }else{
-                System.out.println("ERROR Command::D");
+
+    public static void main(String[] args) throws Exception{
+        Scanner in = new Scanner(System.in);
+        Parser myParser = new Parser();
+        Terminal myTerminal = new Terminal();
+        while (true) {
+            System.out.print(myTerminal.getCurrPath()+ ">");
+            String input = in.nextLine();
+            if (myParser.parse(input))
+            {
+                myTerminal.setParser(myParser);
+                String commandName = myTerminal.parser.getCommandName();
+                myTerminal.chooseCommandAction(commandName);
             }
-            if(exitLoop)
-                break;
+            else
+            {
+                System.out.println(myParser.getCommandName() + " is not recognized as an internal or external command,");
+            }
         }
-        
-        
-        
     }
     
 }
